@@ -2,6 +2,7 @@ require_relative './peg.rb'
 require_relative './color.rb'
 
 class Guess
+  attr_reader :guess
   
   def initialize(guess)
     @guess = convert_csv_guess_to_object(guess)

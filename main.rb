@@ -40,10 +40,13 @@ def main()
   welcome_message()
 
   answer = GameLogic.randomly_generate_answer
+  puts(answer)
 
   guess = Guess.new(get_user_guess())
-  puts()
-
+  
+  num_partially_correct, num_fully_correct = GameLogic.compare_answer(guess, answer)
+  
+  
 end
 
 main()
