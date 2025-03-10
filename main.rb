@@ -1,4 +1,5 @@
 require_relative 'lib/game_logic.rb'
+require_relative 'lib/guess.rb'
 
 def valid_guess?(guess)
   unless guess.length == 4
@@ -11,18 +12,20 @@ def valid_guess?(guess)
 end
 
 def get_user_guess()
-  i = 0
+  guess = ""
+
   loop do
     print('Please enter your guess: ')
     # removes all whitespace, splits in array of chars, and downcases them for easier future comparisons
     guess = gets.gsub(/\s+/, "").split(',').map {|char| char.downcase} 
-    valid_guess = valid_guess?(guess)
+    is_guess_valid = valid_guess?(guess)
+    
+    break if is_guess_valid
 
-    puts valid_guess
-
-    i += 1
-    break if i > 10
+    puts("Invalid guess. Please enter only 4 chars, and they must all be valid first letters of 6 colors above.")
   end
+
+  guess
 end
 
 def welcome_message()
@@ -38,7 +41,8 @@ def main()
 
   answer = GameLogic.randomly_generate_answer
 
-  get_user_guess()
+  guess = Guess.new(get_user_guess())
+  puts()
 
 end
 
