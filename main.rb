@@ -34,19 +34,28 @@ def welcome_message()
   puts('When you guess the 4 color code, simply enter the first letter of each with a comma between them.')
   puts('For example, the guess \'g, r, b, y\' equates to guessing \'Green, Red, Blue, Yellow\'')
   puts("\nYou have 12 guesses to crack the code, good luck!")
+  puts("\n=======================================================\n")
 end
 
 def main()
   welcome_message()
 
   answer = GameLogic.randomly_generate_answer
-  puts(answer)
 
-  guess = Guess.new(get_user_guess())
-  
-  num_partially_correct, num_fully_correct = GameLogic.compare_answer(guess, answer)
-  
-  
+  i = 0
+  loop do
+    guess = Guess.new(get_user_guess())
+    
+    num_partially_correct, num_fully_correct = GameLogic.compare_answer(guess, answer)
+    puts("#{num_partially_correct} partially correct placements.")
+    puts("#{num_fully_correct} fully correct placements.\n\n")
+
+    i += 1
+    break if num_fully_correct == 4 || i == 12
+  end
+
+  puts('Game Over. Answer was: ')
+  puts(answer)
 end
 
 main()
